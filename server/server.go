@@ -17,14 +17,14 @@ type ServerConfig struct {
 	WriteTimeout int
 	IdleTimeout  int
 	ShutdownWait int
-	Address      string
+	Port         string
 }
 
 func StartAndGracefullShutdown(l *zap.SugaredLogger, sm http.Handler, conf ServerConfig) {
 	// create a new server
 	fmt.Printf("%+v\n", conf)
 	s := http.Server{
-		Addr:         ":" + conf.Address,                             // configure the bind address
+		Addr:         ":" + conf.Port,                                // configure the bind address
 		Handler:      sm,                                             // set the default handler
 		ReadTimeout:  time.Duration(conf.ReadTimeout) * time.Second,  // max time to read request from the client
 		WriteTimeout: time.Duration(conf.WriteTimeout) * time.Second, // max time to write response to the client
@@ -32,7 +32,7 @@ func StartAndGracefullShutdown(l *zap.SugaredLogger, sm http.Handler, conf Serve
 	}
 	// start the server
 	go func() {
-		l.Infow("Starting server on port " + conf.Address)
+		l.Infow("Starting server on port " + conf.Port)
 
 		err := s.ListenAndServe()
 		if err != nil {
