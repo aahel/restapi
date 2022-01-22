@@ -1,0 +1,151 @@
+definitions:
+  KeyValue:
+    properties:
+      key:
+        example: active-tabs
+        type: string
+        x-go-name: Key
+      value:
+        example: getir
+        type: string
+        x-go-name: Value
+    required:
+    - key
+    - value
+    type: object
+    x-go-package: github.com/aahel/restapi/types
+  Record:
+    properties:
+      createdAt:
+        format: date-time
+        type: string
+        x-go-name: CreatedAt
+      key:
+        type: string
+        x-go-name: Key
+      totalCount:
+        format: int64
+        type: integer
+        x-go-name: TotalCount
+    type: object
+    x-go-package: github.com/aahel/restapi/entity
+  RecordFilterReq:
+    properties:
+      endDate:
+        example: '"2016-07-24"'
+        type: string
+        x-go-name: EndDate
+      maxCount:
+        example: 3700
+        format: int64
+        type: integer
+        x-go-name: MaxCount
+      minCount:
+        example: 2700
+        format: int64
+        type: integer
+        x-go-name: MinCount
+      startDate:
+        example: '"2016-05-24"'
+        type: string
+        x-go-name: StartDate
+    required:
+    - startDate
+    - endDate
+    - minCount
+    - maxCount
+    type: object
+    x-go-package: github.com/aahel/restapi/types
+  RecordResp:
+    properties:
+      code:
+        example: 0
+        format: int64
+        type: integer
+        x-go-name: Code
+      msg:
+        example: '"Success"'
+        type: string
+        x-go-name: Msg
+      records:
+        items:
+          $ref: '#/definitions/Record'
+        type: array
+        x-go-name: Records
+    type: object
+    x-go-package: github.com/aahel/restapi/types
+paths:
+  /v1/in-memory:
+    get:
+      description: stores key value in in memory db
+      operationId: inMemoryQueryParams
+      parameters:
+      - in: query
+        name: key
+        required: true
+        type: string
+        x-go-name: Key
+      responses:
+        "200":
+          $ref: '#/responses/inMemorySuccessResponse'
+        "400":
+          $ref: '#/responses/errResp'
+        "404":
+          $ref: '#/responses/errResp'
+      tags:
+      - inMemory
+    post:
+      description: stores key value in in memory db
+      operationId: inMemoryReq
+      parameters:
+      - in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/KeyValue'
+      responses:
+        "200":
+          $ref: '#/responses/inMemorySuccessResponse'
+        "400":
+          $ref: '#/responses/errResp'
+      tags:
+      - inMemory
+  /v1/records:
+    post:
+      description: Return records from the database
+      operationId: recordReq
+      parameters:
+      - in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/RecordFilterReq'
+      responses:
+        "200":
+          $ref: '#/responses/recordSuccessResponse'
+        "400":
+          $ref: '#/responses/errResp'
+        "404":
+          $ref: '#/responses/errResp'
+        "500":
+          $ref: '#/responses/errResp'
+      tags:
+      - records
+responses:
+  errResp:
+    description: ""
+    headers:
+      code:
+        format: int64
+        type: integer
+      msg:
+        type: string
+  inMemorySuccessResponse:
+    description: ""
+    schema:
+      $ref: '#/definitions/KeyValue'
+  recordSuccessResponse:
+    description: ""
+    schema:
+      $ref: '#/definitions/RecordResp'
+swagger: "2.0"
