@@ -1,4 +1,4 @@
-package api
+package types
 
 import (
 	"net/http"
@@ -7,7 +7,6 @@ import (
 	"github.com/aahel/restapi/respond"
 )
 
-// Handler custom api handler help us to handle all the errors in one place
 type Handler func(w http.ResponseWriter, r *http.Request) *errors.AppError
 
 func (f Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {

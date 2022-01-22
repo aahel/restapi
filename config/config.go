@@ -7,11 +7,7 @@ import (
 	"strings"
 	"time"
 
-	appMiddleware "github.com/aahel/restapi/middleware"
 	"github.com/aahel/restapi/server"
-	"github.com/go-chi/chi/v5"
-	chiMiddleWare "github.com/go-chi/chi/v5/middleware"
-	"github.com/rs/cors"
 	"github.com/spf13/viper"
 	"go.elastic.co/ecszap"
 
@@ -84,32 +80,6 @@ func GetConsoleLogger() *zap.SugaredLogger {
 	return logger.Sugar()
 }
 
-func InitRouter(logger *zap.SugaredLogger, appConfig *Configurations) *chi.Mux {
-	router := chi.NewRouter()
-	cors := cors.New(cors.Options{
-		AllowedOrigins: []string{"*"},
-		AllowedMethods: []string{"GET", "POST", "PUT", "PATCH", "OPTIONS", "DELETE"},
-		AllowedHeaders: []string{
-			"Origin", "Authorization", "Access-Control-Allow-Origin",
-			"Access-Control-Allow-Header", "Accept",
-			"Content-Type", "X-CSRF-Token",
-		},
-		ExposedHeaders: []string{
-			"Content-Length", "Access-Control-Allow-Origin", "Origin",
-		},
-		AllowCredentials: true,
-		MaxAge:           300,
-	})
-	router.Use(
-		cors.Handler,
-		chiMiddleWare.RequestID,
-		chiMiddleWare.Logger,
-		appMiddleware.Recoverer,
-	)
-
-	return router
-}
-
 func configureDatabase(log *zap.SugaredLogger, conf DBConfig) *mongo.Database {
 	clientOptions := options.Client().ApplyURI(conf.URI)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -120,6 +90,7 @@ func configureDatabase(log *zap.SugaredLogger, conf DBConfig) *mongo.Database {
 	}
 	return client.Database(conf.NAME)
 }
+
 func GetDBConn(log *zap.SugaredLogger, conf DBConfig) *mongo.Database {
 	if dbConn != nil {
 		return dbConn

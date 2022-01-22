@@ -12,7 +12,6 @@ import (
 	"github.com/aahel/restapi/errors"
 	"github.com/aahel/restapi/mocks"
 	"github.com/aahel/restapi/types"
-	"github.com/go-chi/chi/v5"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -59,9 +58,9 @@ func TestWriteDataValueRequired(t *testing.T) {
 func TestGetData(t *testing.T) {
 	key := "test"
 	r := httptest.NewRequest("GET", "localhost:8080/v1/in-memory?key="+key, nil)
-	rctx := chi.NewRouteContext()
-	rctx.URLParams.Add("key", key)
-	r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
+	params := map[string]string{}
+	params["key"] = key
+	r = r.WithContext(context.WithValue(r.Context(), types.RouteContextKey, params))
 	rec := httptest.NewRecorder()
 	mockService := new(mocks.InMemoryService)
 	kv := &types.KeyValue{
@@ -85,9 +84,9 @@ func TestGetData(t *testing.T) {
 func TestGetDatakeyRequired(t *testing.T) {
 	key := "test"
 	r := httptest.NewRequest("GET", "localhost:8080/v1/in-memory?key=", nil)
-	rctx := chi.NewRouteContext()
-	rctx.URLParams.Add("key", key)
-	r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
+	params := map[string]string{}
+	params["key"] = key
+	r = r.WithContext(context.WithValue(r.Context(), types.RouteContextKey, params))
 	rec := httptest.NewRecorder()
 	mockService := new(mocks.InMemoryService)
 	lgr := config.GetConsoleLogger()
@@ -100,9 +99,9 @@ func TestGetDatakeyRequired(t *testing.T) {
 func TestGetDataKeynotFound(t *testing.T) {
 	key := "test"
 	r := httptest.NewRequest("GET", "localhost:8080/v1/in-memory?key="+key, nil)
-	rctx := chi.NewRouteContext()
-	rctx.URLParams.Add("key", key)
-	r = r.WithContext(context.WithValue(r.Context(), chi.RouteCtxKey, rctx))
+	params := map[string]string{}
+	params["key"] = key
+	r = r.WithContext(context.WithValue(r.Context(), types.RouteContextKey, params))
 	rec := httptest.NewRecorder()
 	mockService := new(mocks.InMemoryService)
 	errs := errors.KeyNotFound()

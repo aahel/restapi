@@ -3,14 +3,12 @@ module github.com/aahel/restapi
 go 1.17
 
 require (
-	github.com/go-chi/chi/v5 v5.0.7
 	go.mongodb.org/mongo-driver v1.8.2
 	go.uber.org/zap v1.17.0
 )
 
 require (
 	github.com/go-openapi/runtime v0.21.0
-	github.com/rs/cors v1.8.2
 	github.com/spf13/viper v1.10.1
 	github.com/stretchr/testify v1.7.0
 	go.elastic.co/ecszap v1.0.0
