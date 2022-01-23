@@ -128,7 +128,7 @@ func TestGetRecordsEndDateBeforeStatDateErr(t *testing.T) {
 	recHandl := NewRecordHandler(lgr, mockService)
 	err := recHandl.GetRecords(rec, r)
 	assert.NotNil(t, err)
-	assert.Equal(t, err, errors.InavalidDates())
+	assert.Equal(t, err, errors.InvalidDateRange())
 }
 
 func TestGetRecordsNotFoundErr(t *testing.T) {
