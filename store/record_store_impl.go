@@ -6,6 +6,7 @@ import (
 
 	"github.com/aahel/restapi/errors"
 	"github.com/aahel/restapi/model"
+	"github.com/aahel/restapi/types/consts"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/zap"
@@ -49,7 +50,7 @@ func (rec *RecordStoreImpl) GetRecords(startDate, endDate time.Time, minCount in
 		},
 	}
 	ctx := context.Background()
-	cursor, err := rec.db.Collection("records").Aggregate(ctx, pipeline)
+	cursor, err := rec.db.Collection(consts.RecordsColl).Aggregate(ctx, pipeline)
 	if err != nil {
 		return nil, errors.InternalServerStd().AddDebug(err)
 	}
