@@ -41,7 +41,7 @@ func (rh *RecordHandler) GetRecords(rw http.ResponseWriter, r *http.Request) *er
 		return errors.InavalidDates()
 	}
 	if startDate.After(endDate) {
-		return errors.InavalidDates()
+		return errors.InvalidDateRange()
 	}
 	records, errz := rh.svc.GetRecords(startDate, endDate, recordReq.MinCount, recordReq.MaxCount)
 	if errz != nil {

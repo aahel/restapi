@@ -79,3 +79,7 @@ func UmarshallError() *AppError {
 func RecordNotFound() *AppError {
 	return NewAppError(http.StatusNotFound, RecordNotFoundCode, RecordNotFoundMessage)
 }
+
+func InvalidDateRange() *AppError {
+	return NewAppError(http.StatusBadRequest, InvalidDateRangeCode, InvalidDateRangeMessage)
+}

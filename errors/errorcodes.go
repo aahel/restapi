@@ -24,4 +24,7 @@ const (
 
 	RecordNotFoundCode    = 8
 	RecordNotFoundMessage = "record not found"
+
+	InvalidDateRangeCode    = 9
+	InvalidDateRangeMessage = "startDate should be before endDate"
 )
