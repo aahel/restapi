@@ -28,7 +28,7 @@ definitions:
         type: integer
         x-go-name: TotalCount
     type: object
-    x-go-package: github.com/aahel/restapi/entity
+    x-go-package: github.com/aahel/restapi/model
   RecordFilterReq:
     properties:
       endDate:

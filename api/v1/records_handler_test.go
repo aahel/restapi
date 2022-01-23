@@ -9,9 +9,9 @@ import (
 	"testing"
 
 	"github.com/aahel/restapi/config"
-	"github.com/aahel/restapi/entity"
 	"github.com/aahel/restapi/errors"
 	"github.com/aahel/restapi/mocks"
+	"github.com/aahel/restapi/model"
 	"github.com/aahel/restapi/types"
 	"github.com/aahel/restapi/utils"
 	"github.com/stretchr/testify/assert"
@@ -36,7 +36,7 @@ func TestGetRecords(t *testing.T) {
 	recordRes := &types.RecordResp{
 		Code:    0,
 		Msg:     "Success",
-		Records: []*entity.Record{{Key: "ihfhahf", TotalCount: 2900, CreatedAt: startTime.AddDate(0, 0, 4)}},
+		Records: []*model.Record{{Key: "ihfhahf", TotalCount: 2900, CreatedAt: startTime.AddDate(0, 0, 4)}},
 	}
 	mockService.On("GetRecords", startTime, endTime, minCount, maxCount).Return(recordRes, nil)
 	lgr := config.GetConsoleLogger()

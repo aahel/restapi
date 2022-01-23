@@ -3,13 +3,13 @@ package store
 import (
 	"time"
 
-	"github.com/aahel/restapi/entity"
 	"github.com/aahel/restapi/errors"
+	"github.com/aahel/restapi/model"
 	"github.com/aahel/restapi/types"
 )
 
 type RecordStore interface {
-	GetRecords(tartDate, endDate time.Time, minCount int64, maxCount int64) ([]*entity.Record, *errors.AppError)
+	GetRecords(tartDate, endDate time.Time, minCount int64, maxCount int64) ([]*model.Record, *errors.AppError)
 }
 
 type InMemoryStore interface {

@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	entity "github.com/aahel/restapi/entity"
+	model "github.com/aahel/restapi/model"
 	errors "github.com/aahel/restapi/errors"
 
 	mock "github.com/stretchr/testify/mock"
@@ -17,15 +17,15 @@ type RecordStore struct {
 }
 
 // GetRecords provides a mock function with given fields: tartDate, endDate, minCount, maxCount
-func (_m *RecordStore) GetRecords(tartDate time.Time, endDate time.Time, minCount int64, maxCount int64) ([]*entity.Record, *errors.AppError) {
+func (_m *RecordStore) GetRecords(tartDate time.Time, endDate time.Time, minCount int64, maxCount int64) ([]*model.Record, *errors.AppError) {
 	ret := _m.Called(tartDate, endDate, minCount, maxCount)
 
-	var r0 []*entity.Record
-	if rf, ok := ret.Get(0).(func(time.Time, time.Time, int64, int64) []*entity.Record); ok {
+	var r0 []*model.Record
+	if rf, ok := ret.Get(0).(func(time.Time, time.Time, int64, int64) []*model.Record); ok {
 		r0 = rf(tartDate, endDate, minCount, maxCount)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]*entity.Record)
+			r0 = ret.Get(0).([]*model.Record)
 		}
 	}
 

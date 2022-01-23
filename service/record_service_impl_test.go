@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/aahel/restapi/config"
-	"github.com/aahel/restapi/entity"
 	"github.com/aahel/restapi/errors"
 	"github.com/aahel/restapi/mocks"
+	"github.com/aahel/restapi/model"
 	"github.com/aahel/restapi/utils"
 	"github.com/stretchr/testify/assert"
 )
@@ -19,7 +19,7 @@ func TestGetRecords(t *testing.T) {
 	endTime, _ := utils.StrToTime("2016-05-27")
 	minCount := int64(2700)
 	maxCount := int64(3700)
-	expectedRecords := []*entity.Record{{Key: "ihfhahf", TotalCount: 2900, CreatedAt: startTime.AddDate(0, 0, 4)}}
+	expectedRecords := []*model.Record{{Key: "ihfhahf", TotalCount: 2900, CreatedAt: startTime.AddDate(0, 0, 4)}}
 	mockRecordStore.On("GetRecords", startTime, endTime, minCount, maxCount).Return(expectedRecords, nil)
 	recs, err := svc.GetRecords(startTime, endTime, minCount, maxCount)
 	mockRecordStore.AssertExpectations(t)

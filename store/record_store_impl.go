@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/aahel/restapi/entity"
 	"github.com/aahel/restapi/errors"
+	"github.com/aahel/restapi/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/zap"
@@ -20,8 +20,8 @@ func NewRecordsStore(l *zap.SugaredLogger, db *mongo.Database) *RecordStoreImpl 
 	return &RecordStoreImpl{l, db}
 }
 
-func (rec *RecordStoreImpl) GetRecords(startDate, endDate time.Time, minCount int64, maxCount int64) ([]*entity.Record, *errors.AppError) {
-	records := []*entity.Record{}
+func (rec *RecordStoreImpl) GetRecords(startDate, endDate time.Time, minCount int64, maxCount int64) ([]*model.Record, *errors.AppError) {
+	records := []*model.Record{}
 	pipeline := []bson.M{
 		{
 			"$match": bson.M{

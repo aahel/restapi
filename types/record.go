@@ -4,8 +4,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/aahel/restapi/entity"
 	"github.com/aahel/restapi/errors"
+	"github.com/aahel/restapi/model"
 )
 
 type RecordFilterReq struct {
@@ -37,8 +37,8 @@ type RecordResp struct {
 	// example: 0
 	Code int `json:"code"`
 	// example: "Success"
-	Msg     string           `json:"msg,omitempty"`
-	Records []*entity.Record `json:"records,omitempty"`
+	Msg     string          `json:"msg,omitempty"`
+	Records []*model.Record `json:"records,omitempty"`
 }
 
 type Record struct {
