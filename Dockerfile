@@ -20,7 +20,7 @@ RUN go mod download
 COPY . .
 
 # Set http port
-ENV PORT 8081
+ENV SERVER_PORT 8081
 
 # Build the app
 RUN go build -o restapi
