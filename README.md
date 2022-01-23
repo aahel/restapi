@@ -44,7 +44,7 @@ Rest api without using any external web framework or router
 
 ### In memory endpoints
 
-1. `POST` ec2-54-211-88-48.compute-1.amazonaws.com/v1/in-memory
+1. `POST` http://ec2-54-211-88-48.compute-1.amazonaws.com/v1/in-memory
 
 
 Ex request and response:
@@ -56,7 +56,7 @@ Ex request and response:
 }
 ```
 
-2. `GET` ec2-54-211-88-48.compute-1.amazonaws.com/v1/in-memory?key=(key)
+2. `GET` http://ec2-54-211-88-48.compute-1.amazonaws.com/v1/in-memory?key=(key)
 
 Ex: `GET` http://ec2-54-211-88-48.compute-1.amazonaws.com/v1/in-memory?key=active-tabs
 
